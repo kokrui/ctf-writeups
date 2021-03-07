@@ -19,6 +19,7 @@ We are given a SOAR-Challenge.pdf that is open-able and displays this DSO Mid-Te
 
 ![image](./screenshots/ss1.png)
 
+---
 ### Stage 1 - File Forensics
 Opening the pdf in [peepdf](https://github.com/jesparza/peepdf) reveals a bunch of objects and streams!
 
@@ -91,6 +92,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 
 Looks like there is indeed a Zip archive “hidden” within the PDF!
 
+---
 ### Stage 2 - Password Cracking
 
 If we try to unzip it, it requests for a password.
@@ -139,6 +141,7 @@ for line in lines:
 
 The password turned out to be `dso` :D
 
+---
 ### Stage 3 - "Reversing"
 
 With the password cracked, we can now extract the contents of the zip file. It contains a singular file - which turns out to be a x86-64 binary!

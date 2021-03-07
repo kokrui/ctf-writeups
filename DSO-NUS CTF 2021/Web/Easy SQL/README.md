@@ -11,7 +11,8 @@
 ## Writeup
 _Note: No screenshots because I didn’t take any during the CTF, and the challenge site is now down :(. Also, apparently there was a public write-up of this challenge online with the exact same solution, but we didn’t find/know of it during the CTF so we solved it "legit"_
 
-#### Enumeration
+---
+### Enumeration
 An initial look at the page shows a text input box, a submit button, and a prefilled query `1`. Submitting `1` reveals the following output, which implies that this is some “search” page. The structured nature of the data implies that a **relational database** is likely on the backend.
 
 Trying an input like ``"; --`` outputs an SQL error message, which not only confirms that it’s SQL, but also implies that the site is simply executing whatever input we submit as an SQL statement. The error message being returned to us also opens up the possibility of a Bool-based Blind SQL Injection, if needed.
@@ -37,6 +38,7 @@ The basic plan of attack for most “easy” SQL Injection challenges like this 
 
 Alternatively, sometimes we have to leak out SQL Server user information, and maybe crack password hashes and login/do other stuff.
 
+---
 ### Filter Bypass...? (fail)
 However, attempting even the first step reveals that there is a PHP blacklist/filter blocking specific SQL keywords. In this case, our query can’t be executed because of a filter on the SELECT statement. There are a few common ways to try to bypass such a filter:
 * URL Encoding specific letters (however, in this case, these are parsed before they are sent to the PHP filter. They are also only parsed once, so double encoding doesn’t work)
@@ -46,6 +48,7 @@ There are 2 other possibilities - firstly, **Unicode Smuggling**, or second, tha
 
 Seeing as that there is a **Unicode Chinese full stop (U+3002 IDEOGRAPHIC FULL STOP)** on the page, it appears to be a hint that we’re supposed to do some unicode smuggling - where homoglyphs are used in place of the ASCII character, and the hope is that these are converted to ASCII somewhere in the backend after the filter. I spend hours trying out various variations (greek, cyrillic) of all the letters in SELECT and the other SQL statements filtered - these pass the PHP filter, but unfortunately don’t get converted to their ASCII counterparts by the time they reach the SQL execute statement, and the backend consistently throws syntax errors.
 
+---
 ### Stacked Injection
 Therefore, we take a look at another important observation - normally, SQL Injection challenges require manipulation and abuse of **Data Query Language** - the subset of SQL that exclusively involves retrieving data from relational databases. (examples of DQL statements include SELECT, FROM, WHERE, UNION, etc.). However, the filter includes statements from **Data Manipulation Language (DML) and Data Definition Language (DDL) - statements like INSERT, UPDATE, DELETE, etc.**
 
@@ -77,6 +80,7 @@ Sure enough, when we scroll down a bit, we see that there’s a direct compariso
 
 We can thus apply the ``HANDLER`` function to read the data in the ``1919810931114514`` table! _(In actual fact, I spent ~20minutes trying to figure out my error before realising I had to ``HANDLER \<table\> OPEN``... derp_
 
+---
 ### Getting Flag
 The **final injection** is therefore:
 ```
