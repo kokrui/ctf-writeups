@@ -19,4 +19,4 @@ Crypto|Poor Men|149
 
 Assigned Writeups
 ---
-As part of winner validation, there are mandatory write-ups for 2 challenges. We were assigned [SOAR]() and [Easy SQL](./Web/Easy Sql).
+As part of winner validation, there are mandatory write-ups for 2 challenges. We were assigned [SOAR]() and [Easy SQL](https://github.com/kokrui/ctf-writeups/tree/master/DSO-NUS%20CTF%202021/Web/Easy%20SQL).
