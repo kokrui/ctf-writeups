@@ -153,7 +153,7 @@ root@kali:~/Desktop/dso/soar# ls -lah
 
 **Ghidra’s decompiler** output makes it apparent that there is a 47-char string. However, converting those hex values into text gives us gibberish.
 
-![image](./screenshots/ss2.png)
+![image](./screenshots/ss2.png){height = 50%}
 
 Looking through the decompilation output, we can see that a few operations and XORs are performed on/using this original string ``(local_668)``, which eventually manipulates `local_690` (lines 130 to 136). We can presume `local_690` is a character array with 47 printable characters, seeing that a null byte is set at location `0x2f` (or index 47, aka 48th char) (line 129). `local_690` apparently becomes a filename that `fopen` attempts to read (line 139). A file must successfully be read, since the rest of the code only executes if the return value of the `fopen` call is non-null (line 140).
 
