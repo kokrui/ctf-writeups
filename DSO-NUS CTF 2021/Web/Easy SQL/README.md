@@ -19,8 +19,8 @@ Trying `` ';--`` (single quotes) doesn’t show an error, implying that the orig
 
 The page source includes a comment stating that _"SQLmap is not a panacea"_ - meaning that SQLmap won’t be a cure-all solution for this challenge. But it still might be a cure-some, so we run SQLmap, injecting into the GET parameter “inject”:
 
-```bash
-root@kali:~$ sqlmap -u ctf-85ib.balancedcompo.site:9000/?inject=1
+``` console
+root@kali:~$ sqlmap -u "ctf-85ib.balancedcompo.site:9000/?inject=1"
 ...
 ...
 DB Version: MySQL 5.0+
