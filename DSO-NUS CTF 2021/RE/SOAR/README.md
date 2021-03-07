@@ -1,7 +1,7 @@
 # SOAR [300 pts] (Assigned Writeup)
 >Looking for a scholarship?
 Help us find the secret hidden in this one!
-
+>
 >Files (Any of the links are fine):
 https://nusdsoctf2.s3-ap-southeast-1.amazonaws.com/S3/SOAR/SOAR-challenge.pdf
 
@@ -19,7 +19,7 @@ We are given a SOAR-Challenge.pdf that is open-able and displays this DSO Mid-Te
 
 ![image](./screenshots/ss1.png)
 
-#### Stage 1 - File Forensics
+### Stage 1 - File Forensics
 Opening the pdf in [peepdf](https://github.com/jesparza/peepdf) reveals a bunch of objects and streams!
 
 ``` console
@@ -89,7 +89,11 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 40792         0x9F58          End of Zip archive, footer length: 22
 ```
 
-Looks like there is indeed a Zip archive “hidden” within the PDF! If we try to unzip it, it requests for a password.
+Looks like there is indeed a Zip archive “hidden” within the PDF!
+
+### Stage 2 - Password Cracking
+
+If we try to unzip it, it requests for a password.
 
 ``` console
 root@kali:~/Desktop/dso/soar/_SOAR-challenge.pdf.extracted# 7z e soar.zip
@@ -134,6 +138,8 @@ for line in lines:
 ```
 
 The password turned out to be `dso` :D
+
+### Stage 3 - "Reversing"
 
 With the password cracked, we can now extract the contents of the zip file. It contains a singular file - which turns out to be a x86-64 binary!
 

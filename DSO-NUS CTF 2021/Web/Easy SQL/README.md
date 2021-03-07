@@ -37,7 +37,7 @@ The basic plan of attack for most “easy” SQL Injection challenges like this 
 
 Alternatively, sometimes we have to leak out SQL Server user information, and maybe crack password hashes and login/do other stuff.
 
-#### Filter Bypass...? (fail)
+### Filter Bypass...? (fail)
 However, attempting even the first step reveals that there is a PHP blacklist/filter blocking specific SQL keywords. In this case, our query can’t be executed because of a filter on the SELECT statement. There are a few common ways to try to bypass such a filter:
 * URL Encoding specific letters (however, in this case, these are parsed before they are sent to the PHP filter. They are also only parsed once, so double encoding doesn’t work)
 * If preg_replace is used (and only once), one can try something like ``SELSELECTECT``, hoping the middle ``SELECT`` is removed by the filter, therefore ending up executing… ``SELECT``. However, in this case, ``preg_match`` is used, which prevents execution if any keyword appears at all
@@ -46,7 +46,7 @@ There are 2 other possibilities - firstly, **Unicode Smuggling**, or second, tha
 
 Seeing as that there is a **Unicode Chinese full stop (U+3002 IDEOGRAPHIC FULL STOP)** on the page, it appears to be a hint that we’re supposed to do some unicode smuggling - where homoglyphs are used in place of the ASCII character, and the hope is that these are converted to ASCII somewhere in the backend after the filter. I spend hours trying out various variations (greek, cyrillic) of all the letters in SELECT and the other SQL statements filtered - these pass the PHP filter, but unfortunately don’t get converted to their ASCII counterparts by the time they reach the SQL execute statement, and the backend consistently throws syntax errors.
 
-#### Stacked Injection
+### Stacked Injection
 Therefore, we take a look at another important observation - normally, SQL Injection challenges require manipulation and abuse of **Data Query Language** - the subset of SQL that exclusively involves retrieving data from relational databases. (examples of DQL statements include SELECT, FROM, WHERE, UNION, etc.). However, the filter includes statements from **Data Manipulation Language (DML) and Data Definition Language (DDL) - statements like INSERT, UPDATE, DELETE, etc.**
 
 DML and DDL are usually only relevant in SQL Injection challenges that involve **Stacked SQL Injections**. A Stacked SQL Injection is when multiple distinct SQL statements (separated by semicolons) are allowed to be injected and executed. Stacked SQL Injections are generally way easier than conventional SQL Injection challenges (eg. involving UNIONs or even Time-based Blind injections) - which explains the challenge title “Easy SQL”.
@@ -77,7 +77,7 @@ Sure enough, when we scroll down a bit, we see that there’s a direct compariso
 
 We can thus apply the ``HANDLER`` function to read the data in the ``1919810931114514`` table! _(In actual fact, I spent ~20minutes trying to figure out my error before realising I had to ``HANDLER \<table\> OPEN``... derp_
 
-#### Getting Flag
+### Getting Flag
 The **final injection** is therefore:
 ```
 '; HANDLER `1919810931114514` OPEN; HANDLER `1919810931114514` READ FIRST; --
