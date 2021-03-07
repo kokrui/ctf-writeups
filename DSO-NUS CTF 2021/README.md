@@ -21,4 +21,4 @@ Assigned Writeups
 ---
 As part of winner validation, there are mandatory write-ups for 2 challenges. We were assigned [SOAR]() and [Easy SQL](https://github.com/kokrui/ctf-writeups/tree/master/DSO-NUS%20CTF%202021/Web/Easy%20SQL).
 
-These were originally written on a Google Doc, because I wrote them on mobile while in an army camp.
+These were originally written on a [Google Doc](https://docs.google.com/document/d/142chjaZ1EJ9L7kOjAsGryzCrQSFVGqXpWAdapjQ3910/edit#), because I wrote them on mobile while in an army camp.
